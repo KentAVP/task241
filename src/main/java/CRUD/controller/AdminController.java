@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-
+//контроллер админа вывел в отдельный класс
 @Controller
 @RequestMapping("/admin/**")
 public class AdminController {
@@ -31,19 +31,19 @@ public class AdminController {
     public String insertUser(@ModelAttribute("user")User user, ModelMap model) {
         model.addAttribute("user",user);
         userService.add(user);
-        return "redirect:admin/list";
+        return "redirect:/admin";
     }
     @RequestMapping(value = {"update"}, method = {RequestMethod.POST})
     public String updateUser(@ModelAttribute("user")User user, ModelMap model) {
         model.addAttribute("user",user);
         userService.update(user);
-        return "redirect:admin/list";
+        return "redirect:/admin";
     }
     @RequestMapping(value = {"delete"}, method = {RequestMethod.GET})
     public String deleteUser(@ModelAttribute("id")User user, ModelMap model) {
         model.addAttribute("id",user.getId());
         userService.delete(user);
-        return "redirect:admin/list";
+        return "redirect:/admin";
     }
     @RequestMapping(value = {"edit"}, method = {RequestMethod.GET})
     public String showEditForm(@ModelAttribute("id")User user, ModelMap model) {

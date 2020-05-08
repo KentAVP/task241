@@ -36,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //добавил кодировку
+        //в конфиге поставил чтобы не было кодировки
         http.addFilterBefore(new EncodingFilter(), ChannelProcessingFilter.class);
         http
                 .csrf()
