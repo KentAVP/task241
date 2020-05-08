@@ -59,13 +59,13 @@
                         />
                     </td>
                 </tr>
-                <tr>
+              <%--  <tr>
                     <th>Тип пользователя: </th>
                     <td>
                         <input type="radio" name="role" value="user"/> user
                         <input type="radio" name="role" value="admin"/> admin
                     </td>
-                </tr>
+                </tr> --%>
                 <tr>
                     <th>Username: </th>
                     <td>

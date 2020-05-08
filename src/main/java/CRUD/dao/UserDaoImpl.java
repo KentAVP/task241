@@ -4,10 +4,12 @@ import CRUD.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.management.Query;
 import java.util.List;
 
 @Repository
@@ -75,6 +77,9 @@ public class UserDaoImpl implements UserDAO {
             }
             e.printStackTrace();
         }
+        User us = findByUsername(user.getUsername());
+        NativeQuery query = sessionFactory.getCurrentSession().createNativeQuery("INSERT INTO user_role(user_id,role_id) VALUES ('"+us.getId()+"','2');");
+        query.executeUpdate();
     }
 
     @Transactional

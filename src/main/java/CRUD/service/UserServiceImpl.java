@@ -50,6 +50,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User byLogin = userDao.findByUsername(s);
+        String s1 = byLogin.getRoles().toString();
+        System.out.println(s1);
+
 
         if (byLogin == null) {
             throw new UsernameNotFoundException("User " + s + " was not found in the database");

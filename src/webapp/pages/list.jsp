@@ -29,20 +29,20 @@
             <th>ID</th>
             <th>Имя</th>
             <th>Возраст</th>
-            <th>Роль</th>
-            <th>Действие</th>
-        </tr>
-        <c:forEach var="user" items="${listUser}">
-            <tr>
-                <td><c:out value="${user.id}" /></td>
-                <td><c:out value="${user.name}" /></td>
-                <td><c:out value="${user.age}" /></td>
-<%--                <td><c:out value="${user.role}" /></td>--%>
-<%--                <td>--%>
-<%--                    <a href="edit?id=<c:out value='${user.id}' />">Edit</a>--%>
-<%--                    &nbsp;&nbsp;&nbsp;&nbsp;--%>
-<%--                    <a href="delete?id=<c:out value='${user.id}' />">Delete</a>--%>
-<%--                </td>--%>
+            <%--           <th>Роль</th>--%>
+                       <th>Действие</th>
+                   </tr>
+                   <c:forEach var="user" items="${listUser}">
+                       <tr>
+                           <td><c:out value="${user.id}" /></td>
+                           <td><c:out value="${user.name}" /></td>
+                           <td><c:out value="${user.age}" /></td>
+                        <%--   <td><c:out value="${user.role}" /></td>--%>
+                <td>
+                    <a href="edit?id=<c:out value='${user.id}' />">Edit</a>
+
+                    <a href="delete?id=<c:out value='${user.id}' />">Delete</a>
+                </td>
             </tr>
         </c:forEach>
     </table>
