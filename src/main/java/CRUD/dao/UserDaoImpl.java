@@ -18,9 +18,9 @@ import java.util.List;
 @Repository
 @Transactional
 public class UserDaoImpl implements UserDAO {
-    //пытался сделать через энтити
 
-  /*  @PersistenceContext
+
+   @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -39,6 +39,8 @@ public class UserDaoImpl implements UserDAO {
     public void add(User user) {
         if (user.getId() == 0) {
             entityManager.persist(user);
+            User us = findByUsername(user.getUsername());
+            entityManager.createNativeQuery("INSERT INTO user_role(user_id,role_id) VALUES ('"+us.getId()+"','2');").executeUpdate();
         } else {
             entityManager.merge(user);
         }
@@ -62,112 +64,5 @@ public class UserDaoImpl implements UserDAO {
         return users.get(0);
     }
 
-*/
 
- @Autowired
-    private SessionFactory sessionFactory;
-
-    @Transactional
-    public List<User> getAll() {
-        Transaction transaction = null;
-        List<User> listOfUser = null;
-        try {
-            // start a transaction
-            Session session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            // get an user object
-
-            listOfUser = session.createQuery("from User").list(); // забераем из наименование класса
-
-            // commit transaction
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-        return listOfUser;
-    }
-
-    @Transactional
-    public void delete(User user) {
-        Transaction transaction = null;
-
-        try {
-            Session session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            if (user != null) {
-                session.delete(user);
-                System.out.println("Вы удалили пользователя!");
-            }
-            transaction.commit();
-
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-    }
-
-    @Transactional
-    public void add(User user) {
-        Transaction transaction = null;
-        try {
-            Session session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            session.save(user);
-            transaction.commit();
-
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-        User us = findByUsername(user.getUsername());
-        NativeQuery query = sessionFactory.getCurrentSession().createNativeQuery("INSERT INTO user_role(user_id,role_id) VALUES ('"+us.getId()+"','2');");
-        query.executeUpdate();
-    }
-
-    @Transactional
-    public void update(User user) {
-        Transaction transaction = null;
-        try {
-            Session session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            session.merge(user);
-            transaction.commit();
-
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-    }
-
-    @Transactional
-    public User getbyID(int id) {
-        Transaction transaction = null;
-        User user = null;
-        try {
-            Session session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            user = (User) session.get(User.class, id);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-        return user;
-    }
-    @Transactional
-    public User findByUsername(String username) {
-        List<User> users = sessionFactory.getCurrentSession().createQuery("FROM User where username = '"+username+"'").list();
-        return users.get(0);
-    }
 }
